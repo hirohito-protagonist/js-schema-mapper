@@ -1,0 +1,26 @@
+{
+  "name": "js-schema-mapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab -t 100",
+    "test-cov-html": "lab -r html -o coverage.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hirohito-protagonist/js-schema-mapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hirohito-protagonist/js-schema-mapper/issues"
+  },
+  "homepage": "https://github.com/hirohito-protagonist/js-schema-mapper#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "devDependencies": {
+    "lab": "^14.2.0"
+  }
+}
