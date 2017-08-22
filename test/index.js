@@ -70,4 +70,81 @@ describe('Mapper', () => {
         });
         done();
     });
+
+    it('should provide default data from schema when type mismatch is in provided source', (done) => {
+        
+        const person = Mapper.schema({
+            id: Number,
+            name: String,
+            surname: String,
+            male: Boolean
+        });
+
+        expect(person.map({
+            id: '123',
+            name: 'Hiro',
+            address: 'unknown',
+            male: 1
+        })).to.equal({
+            id: 0,
+            name: 'Hiro',
+            surname: '',
+            male: false
+        });
+        done();
+    });
+
+    it('should map Object as it is when is set in schema', (done) => {
+        
+        const person = Mapper.schema({
+            id: Number,
+            name: String,
+            surname: String,
+            male: Boolean,
+            address: Object
+        });
+
+        expect(person.map({
+            id: '123',
+            name: 'Hiro',
+            address: {
+                street: 'Metaverse'
+            },
+            male: 1
+        })).to.equal({
+            id: 0,
+            name: 'Hiro',
+            surname: '',
+            male: false,
+            address: {
+                street: 'Metaverse'
+            }
+        });
+        done();
+    });
+
+    it('should map Array as it is when is set in schema', (done) => {
+        
+        const person = Mapper.schema({
+            id: Number,
+            name: String,
+            surname: String,
+            male: Boolean,
+            friends: Array
+        });
+
+        expect(person.map({
+            id: '123',
+            name: 'Hiro',
+            male: 1,
+            friends: ['Tim', 'Joe']
+        })).to.equal({
+            id: 0,
+            name: 'Hiro',
+            surname: '',
+            male: false,
+            friends: ['Tim', 'Joe']
+        });
+        done();
+    });
 });
