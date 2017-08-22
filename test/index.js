@@ -147,4 +147,37 @@ describe('Mapper', () => {
         });
         done();
     });
+
+    it('should map netsted schema definition', (done) => {
+
+        const person = Mapper.schema({
+            id: Number,
+            name: String,
+            surname: String,
+            male: Boolean,
+            location: {
+                city: String,
+                country: String
+            }
+        });
+
+        expect(person.map({
+            name: 'Hiro',
+            location: {
+                city: 'Hope',
+                country: 'Freedom'
+            }
+        })).to.equal({
+            id: 0,
+            name: 'Hiro',
+            surname: '',
+            male: false,
+            location: {
+                city: 'Hope',
+                country: 'Freedom'
+            }
+        });
+
+        done();
+    });
 });
