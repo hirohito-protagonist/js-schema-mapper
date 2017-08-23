@@ -148,36 +148,128 @@ describe('Mapper', () => {
         done();
     });
 
-    it('should map netsted schema definition', (done) => {
+    describe('When nested schema definition', () => {
 
-        const person = Mapper.schema({
-            id: Number,
-            name: String,
-            surname: String,
-            male: Boolean,
-            location: {
-                city: String,
-                country: String
-            }
+        it('should map with the provided source', (done) => {
+            
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                male: Boolean,
+                location: {
+                    city: String,
+                    country: String
+                }
+            });
+
+            expect(person.map({
+                name: 'Hiro',
+                location: {
+                    city: 'Hope',
+                    country: 'Freedom'
+                }
+            })).to.equal({
+                id: 0,
+                name: 'Hiro',
+                surname: '',
+                male: false,
+                location: {
+                    city: 'Hope',
+                    country: 'Freedom'
+                }
+            });
+
+            done();
         });
 
-        expect(person.map({
-            name: 'Hiro',
-            location: {
-                city: 'Hope',
-                country: 'Freedom'
-            }
-        })).to.equal({
-            id: 0,
-            name: 'Hiro',
-            surname: '',
-            male: false,
-            location: {
-                city: 'Hope',
-                country: 'Freedom'
-            }
+        it('should provide defualt default object from schema when in source mtached object is empty', (done) => {
+            
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                male: Boolean,
+                location: {
+                    city: String,
+                    country: String
+                }
+            });
+    
+            expect(person.map({
+                name: 'Hiro',
+                location: {}
+            })).to.equal({
+                id: 0,
+                name: 'Hiro',
+                surname: '',
+                male: false,
+                location: {
+                    city: '',
+                    country: ''
+                }
+            });
+    
+            done();
         });
 
-        done();
+        it('should provide defualt object from schema when in source mtached object is null', (done) => {
+            
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                male: Boolean,
+                location: {
+                    city: String,
+                    country: String
+                }
+            });
+    
+            expect(person.map({
+                name: 'Hiro',
+                location: null
+            })).to.equal({
+                id: 0,
+                name: 'Hiro',
+                surname: '',
+                male: false,
+                location: {
+                    city: '',
+                    country: ''
+                }
+            });
+    
+            done();
+        });
+
+        it('should provide defualt object from schema when in source mtached object is not defined', (done) => {
+            
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                male: Boolean,
+                location: {
+                    city: String,
+                    country: String
+                }
+            });
+    
+            expect(person.map({
+                name: 'Hiro'
+            })).to.equal({
+                id: 0,
+                name: 'Hiro',
+                surname: '',
+                male: false,
+                location: {
+                    city: '',
+                    country: ''
+                }
+            });
+    
+            done();
+        });
     });
 });
