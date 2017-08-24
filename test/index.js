@@ -272,4 +272,51 @@ describe('Mapper', () => {
             done();
         });
     });
+
+    describe('When nested collection schema definition', () => {
+
+        it('should collect primitives values', (done) => {
+
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                tags: [String]
+            });
+
+            expect(person.map({
+                name: 'Hiro',
+                tags: ['a', 'b', 'c']
+            })).to.equal({
+                id: 0,
+                name: 'Hiro',
+                surname: '',
+                tags: ['a', 'b', 'c']
+            });
+
+            done();
+        });
+
+        it('should for mixed type array values provide default type value define din schema', (done) => {
+            
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                tags: [String]
+            });
+
+            expect(person.map({
+                name: 'Hiro',
+                tags: ['a', true, 'c', 1]
+            })).to.equal({
+                id: 0,
+                name: 'Hiro',
+                surname: '',
+                tags: ['a', '', 'c', '']
+            });
+
+            done();
+        });
+    });
 });
