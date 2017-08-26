@@ -297,7 +297,7 @@ describe('Mapper', () => {
             done();
         });
 
-        it('should for mixed type array values provide default type value define din schema', (done) => {
+        it('should for mixed type array values provide default type value defined in schema', (done) => {
             
             const person = Mapper.schema({
                 id: Number,
@@ -316,6 +316,24 @@ describe('Mapper', () => {
                 tags: ['a', '', 'c', '']
             });
 
+            done();
+        });
+
+        it('should return empty array when in soruce matched property is not array', (done) => {
+            
+            const person = Mapper.schema({
+                tags: [String]
+            });
+
+            expect(person.map({})).to.equal({
+                tags: []
+            });
+
+            expect(person.map({
+                tags: null
+            })).to.equal({
+                tags: []
+            });
             done();
         });
     });
