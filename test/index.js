@@ -336,5 +336,28 @@ describe('Mapper', () => {
             });
             done();
         });
+
+        it('should collect objects', (done) => {
+            
+            const person = Mapper.schema({
+                tags: [{
+                    id: Number,
+                    value: String
+                }]
+            });
+
+            expect(person.map({
+                tags: [
+                    { id: 1, value: 'a' },
+                    { id: 2, value: 'b' }
+                ]
+            })).to.equal({
+                tags: [
+                    { id: 1, value: 'a' },
+                    { id: 2, value: 'b' }
+                ]
+            });
+            done();
+        });
     });
 });
