@@ -360,4 +360,33 @@ describe('Mapper', () => {
             done();
         });
     });
+
+    it('should collect deep array schema definitins', (done) => {
+        
+        const person = Mapper.schema({
+            tags: [{
+                id: Number,
+                value: [{
+                    name: String
+                }]
+            }]
+        });
+
+        expect(person.map({
+            tags: [
+                { 
+                    id: 1,
+                    value: [ { name: 'a' }, { name : 'b'} ]
+                }
+            ]
+        })).to.equal({
+            tags: [
+                { 
+                    id: 1,
+                    value:  [ { name: 'a' }, { name : 'b'} ]
+                }
+            ]
+        });
+        done();
+    });
 });
