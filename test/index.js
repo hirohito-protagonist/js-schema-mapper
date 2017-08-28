@@ -9,18 +9,27 @@ const Mapper = require('./../lib');
 
 describe('Mapper', () => {
 
-    it('should return null when source is different than literal object', (done) => {
+    it('should return schema with default values when source is different than literal object', (done) => {
 
-        const person = Mapper.schema({});
-        expect(person.map()).to.equal(null);
-        expect(person.map(null)).to.equal(null);
-        expect(person.map(true)).to.equal(null);
-        expect(person.map(1)).to.equal(null);
-        expect(person.map('')).to.equal(null);
-        expect(person.map(() => {})).to.equal(null);
-        expect(person.map(new Date())).to.equal(null);
-        expect(person.map(/[a-z]/)).to.equal(null);
-        expect(person.map([])).to.equal(null);
+        const person = Mapper.schema({
+            name: String,
+            tags: [{
+                id: Number
+            }]
+        });
+        const expected = {
+            name: '',
+            tags: []
+        };
+        expect(person.map()).to.equal(expected);
+        expect(person.map(null)).to.equal(expected);
+        expect(person.map(true)).to.equal(expected);
+        expect(person.map(1)).to.equal(expected);
+        expect(person.map('')).to.equal(expected);
+        expect(person.map(() => {})).to.equal(expected);
+        expect(person.map(new Date())).to.equal(expected);
+        expect(person.map(/[a-z]/)).to.equal(expected);
+        expect(person.map([])).to.equal(expected);
         done();
     });
 
