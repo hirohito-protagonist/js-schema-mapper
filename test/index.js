@@ -29,7 +29,7 @@ describe('Mapper', () => {
         expect(person.map(() => {})).to.equal(expected);
         expect(person.map(new Date())).to.equal(expected);
         expect(person.map(/[a-z]/)).to.equal(expected);
-        expect(person.map([])).to.equal(expected);
+        expect(person.map([])).to.equal([]);
         done();
     });
 
@@ -154,6 +154,22 @@ describe('Mapper', () => {
             male: false,
             friends: ['Tim', 'Joe']
         });
+        done();
+    });
+
+    it('should map from source collection', (done) => {
+
+        const person = Mapper.schema({
+            name: String
+        });
+
+        expect(person.map([
+            { name: 'Hiro' },
+            { name: 123 }
+        ])).to.equal([
+            { name: 'Hiro' },
+            { name: '' }
+        ]);
         done();
     });
 
