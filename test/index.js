@@ -18,8 +18,11 @@ describe('Mapper', () => {
             }]
         });
         const expected = {
-            name: '',
-            tags: []
+            isCollection: false,
+            result: {
+                name: '',
+                tags: []
+            }
         };
         expect(person.map()).to.equal(expected);
         expect(person.map(null)).to.equal(expected);
@@ -29,7 +32,10 @@ describe('Mapper', () => {
         expect(person.map(() => {})).to.equal(expected);
         expect(person.map(new Date())).to.equal(expected);
         expect(person.map(/[a-z]/)).to.equal(expected);
-        expect(person.map([])).to.equal([]);
+        expect(person.map([])).to.equal({
+            isCollection: true,
+            result: []
+        });
         done();
     });
 
@@ -37,7 +43,7 @@ describe('Mapper', () => {
         
         const person = Mapper.schema({});
 
-        expect(person.map({})).to.equal({});
+        expect(person.map({}).result).to.equal({});
         done();
     });
 
@@ -50,7 +56,7 @@ describe('Mapper', () => {
             male: Boolean
         });
 
-        expect(person.map({})).to.equal({
+        expect(person.map({}).result).to.equal({
             id: 0,
             name: '',
             surname: '',
@@ -71,7 +77,7 @@ describe('Mapper', () => {
         expect(person.map({
             name: 'Hiro',
             address: 'unknown'
-        })).to.equal({
+        }).result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -94,7 +100,7 @@ describe('Mapper', () => {
             name: 'Hiro',
             address: 'unknown',
             male: 1
-        })).to.equal({
+        }).result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -120,7 +126,7 @@ describe('Mapper', () => {
                 street: 'Metaverse'
             },
             male: 1
-        })).to.equal({
+        }).result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -147,7 +153,7 @@ describe('Mapper', () => {
             name: 'Hiro',
             male: 1,
             friends: ['Tim', 'Joe']
-        })).to.equal({
+        }).result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -166,10 +172,13 @@ describe('Mapper', () => {
         expect(person.map([
             { name: 'Hiro' },
             { name: 123 }
-        ])).to.equal([
-            { name: 'Hiro' },
-            { name: '' }
-        ]);
+        ])).to.equal({
+            isCollection: true,
+            result: [
+                { name: 'Hiro' },
+                { name: '' }
+            ]
+        });
         done();
     });
 
@@ -194,7 +203,7 @@ describe('Mapper', () => {
                     city: 'Hope',
                     country: 'Freedom'
                 }
-            })).to.equal({
+            }).result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -224,7 +233,7 @@ describe('Mapper', () => {
             expect(person.map({
                 name: 'Hiro',
                 location: {}
-            })).to.equal({
+            }).result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -254,7 +263,7 @@ describe('Mapper', () => {
             expect(person.map({
                 name: 'Hiro',
                 location: null
-            })).to.equal({
+            }).result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -283,7 +292,7 @@ describe('Mapper', () => {
     
             expect(person.map({
                 name: 'Hiro'
-            })).to.equal({
+            }).result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -312,7 +321,7 @@ describe('Mapper', () => {
             expect(person.map({
                 name: 'Hiro',
                 tags: ['a', 'b', 'c']
-            })).to.equal({
+            }).result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -334,7 +343,7 @@ describe('Mapper', () => {
             expect(person.map({
                 name: 'Hiro',
                 tags: ['a', true, 'c', 1]
-            })).to.equal({
+            }).result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -350,13 +359,13 @@ describe('Mapper', () => {
                 tags: [String]
             });
 
-            expect(person.map({})).to.equal({
+            expect(person.map({}).result).to.equal({
                 tags: []
             });
 
             expect(person.map({
                 tags: null
-            })).to.equal({
+            }).result).to.equal({
                 tags: []
             });
             done();
@@ -376,7 +385,7 @@ describe('Mapper', () => {
                     { id: 1, value: 'a' },
                     { id: 2, value: 'b' }
                 ]
-            })).to.equal({
+            }).result).to.equal({
                 tags: [
                     { id: 1, value: 'a' },
                     { id: 2, value: 'b' }
@@ -404,7 +413,7 @@ describe('Mapper', () => {
                     value: [ { name: 'a' }, { name : 'b'} ]
                 }
             ]
-        })).to.equal({
+        }).result).to.equal({
             tags: [
                 { 
                     id: 1,
