@@ -18,24 +18,18 @@ describe('Mapper', () => {
             }]
         });
         const expected = {
-            isCollection: false,
-            result: {
-                name: '',
-                tags: []
-            }
+            name: '',
+            tags: []
         };
-        expect(person.map()).to.equal(expected);
-        expect(person.map(null)).to.equal(expected);
-        expect(person.map(true)).to.equal(expected);
-        expect(person.map(1)).to.equal(expected);
-        expect(person.map('')).to.equal(expected);
-        expect(person.map(() => {})).to.equal(expected);
-        expect(person.map(new Date())).to.equal(expected);
-        expect(person.map(/[a-z]/)).to.equal(expected);
-        expect(person.map([])).to.equal({
-            isCollection: true,
-            result: []
-        });
+        expect(person.map().result).to.equal(expected);
+        expect(person.map(null).result).to.equal(expected);
+        expect(person.map(true).result).to.equal(expected);
+        expect(person.map(1).result).to.equal(expected);
+        expect(person.map('').result).to.equal(expected);
+        expect(person.map(() => {}).result).to.equal(expected);
+        expect(person.map(new Date()).result).to.equal(expected);
+        expect(person.map(/[a-z]/).result).to.equal(expected);
+        expect(person.map([]).result).to.equal([]);
         done();
     });
 
@@ -177,6 +171,9 @@ describe('Mapper', () => {
             result: [
                 { name: 'Hiro' },
                 { name: '' }
+            ],
+            errors: [
+                '<name> property expected to be a String but it was Number'
             ]
         });
         done();
@@ -422,5 +419,49 @@ describe('Mapper', () => {
             ]
         });
         done();
+    });
+
+    describe('When ampping errors', () => {
+
+        it('should collect unmatched type information', (done) => {
+
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                tags: [Boolean]
+            });
+
+            expect(person.map({
+                id: '1',
+                name: 12,
+                surname: false,
+                tags: ['a']
+            }).errors).to.equal([
+                '<id> property expected to be a Number but it was String',
+                '<name> property expected to be a String but it was Number',
+                '<surname> property expected to be a String but it was Boolean',
+                '<0> property expected to be a Boolean but it was String'
+            ]);
+            done();
+        });
+
+        it('should collect missing property type information', (done) => {
+            
+            const person = Mapper.schema({
+                id: Number,
+                name: String,
+                surname: String,
+                tags: [Boolean]
+            });
+
+            expect(person.map({}).errors).to.equal([
+                '<id> property is missing',
+                '<name> property is missing',
+                '<surname> property is missing',
+                '<tags> property is missing'
+            ]);
+            done();
+        });
     });
 });
