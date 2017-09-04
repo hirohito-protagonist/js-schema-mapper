@@ -37,7 +37,11 @@ describe('Mapper', () => {
         
         const person = Mapper.schema({});
 
-        expect(person.map({}).result).to.equal({});
+        expect(person.map({})).to.equal({
+            isCollection: false,
+            result: {},
+            errors: []
+        });
         done();
     });
 
