@@ -45,7 +45,7 @@ describe('Mapper', () => {
         done();
     });
 
-    it('should map schema defintion when soruce is empty literal object', (done) => {
+    it('should map schema definition when source is empty literal object', (done) => {
         
         const person = Mapper.schema({
             id: Number,
@@ -218,7 +218,7 @@ describe('Mapper', () => {
             done();
         });
 
-        it('should provide defualt default object from schema when in source mtached object is empty', (done) => {
+        it('should provide default default object from schema when in source matched object is empty', (done) => {
             
             const person = Mapper.schema({
                 id: Number,
@@ -248,7 +248,7 @@ describe('Mapper', () => {
             done();
         });
 
-        it('should provide defualt object from schema when in source mtached object is null', (done) => {
+        it('should provide default object from schema when in source matched object is null', (done) => {
             
             const person = Mapper.schema({
                 id: Number,
@@ -278,7 +278,7 @@ describe('Mapper', () => {
             done();
         });
 
-        it('should provide defualt object from schema when in source mtached object is not defined', (done) => {
+        it('should provide default object from schema when in source matched object is not defined', (done) => {
             
             const person = Mapper.schema({
                 id: Number,
@@ -354,7 +354,7 @@ describe('Mapper', () => {
             done();
         });
 
-        it('should return empty array when in soruce matched property is not array', (done) => {
+        it('should return empty array when in source matched property is not array', (done) => {
             
             const person = Mapper.schema({
                 tags: [String]
@@ -396,7 +396,7 @@ describe('Mapper', () => {
         });
     });
 
-    it('should collect deep array schema definitins', (done) => {
+    it('should collect deep array schema definitions', (done) => {
         
         const person = Mapper.schema({
             tags: [{
@@ -425,7 +425,7 @@ describe('Mapper', () => {
         done();
     });
 
-    describe('When ampping errors', () => {
+    describe('When mapping errors', () => {
 
         it('should collect unmatched type information', (done) => {
 
@@ -445,7 +445,7 @@ describe('Mapper', () => {
                 '<id> property expected to be a Number but it was String',
                 '<name> property expected to be a String but it was Number',
                 '<surname> property expected to be a String but it was Boolean',
-                '<0> property expected to be a Boolean but it was String'
+                '<tags[0]> property expected to be a Boolean but it was String'
             ]);
             done();
         });
