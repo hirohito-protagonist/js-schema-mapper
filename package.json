@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "lab -t 100",
-    "test-cov-html": "lab -r html -o coverage.html"
+    "test-cov-html": "lab -r html -o coverage.html",
+    "prepush": "npm t"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
+    "husky": "^0.14.3",
     "lab": "^14.2.0"
   }
 }
