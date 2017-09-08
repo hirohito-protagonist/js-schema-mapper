@@ -2,7 +2,7 @@
   "name": "js-schema-mapper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "lab -t 100",
     "test-cov-html": "lab -r html -o coverage.html",
