@@ -6,6 +6,7 @@
   "scripts": {
     "test": "lab -t 100",
     "test-cov-html": "lab -r html -o coverage.html",
+    "perf": "node ./benchmark/index.js",
     "prepush": "npm t"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "husky": "^0.14.3",
     "lab": "^14.2.0"
   }
