@@ -224,10 +224,20 @@ console.log(data.result);
 This benchmark is just overview how fast is the schema mapper and the speed depends on 
 machine where the benchmark will be run.
 
+
 The spec machine on which the benchmark was run:
 ```
+AMD A10-4665M APU with Radeon(tm) HD Graphics 2.00 GHz
+10.0 GB RAM DDR3
+Hitachi HDD
 ```
 
+The command to run benchmark:
+```bash
+npm run perf
+```
+
+Example benchmark output:
 ```bash
 Mapping 10 objects to schema x 1,452 ops/sec ±1.16% (178 runs sampled)
 Mapping 100 objects to schema x 145 ops/sec ±1.25% (177 runs sampled)
