@@ -219,6 +219,39 @@ console.log(data.result);
 //    ]
 // }
 ```
+# Benchmark
+
+This benchmark is just overview how fast is the schema mapper and the speed depends on 
+machine where the benchmark will be run.
+
+The spec machine on which the benchmark was run:
+```
+```
+
+```bash
+Mapping 10 objects to schema x 1,452 ops/sec ±1.16% (178 runs sampled)
+Mapping 100 objects to schema x 145 ops/sec ±1.25% (177 runs sampled)
+Mapping 1000 objects to schema x 14.47 ops/sec ±1.12% (135 runs sampled)
+--------------------------------------------------------------------------------------
+Suite name: Mapping 10 objects to schema
+The time taken to complete the last cycle (secs) - 0.055801548022104436
+The time taken to complete the benchmark (secs)  - 15.225
+The time taken to execute the test once (secs)   - 0.0006889080002728942
+A timestamp of when the benchmark started (ms)   - 1504897458435
+--------------------------------------------------------------------------------------
+Suite name: Mapping 100 objects to schema
+The time taken to complete the last cycle (secs) - 0.055360643887005644
+The time taken to complete the benchmark (secs)  - 15.386
+The time taken to execute the test once (secs)   - 0.0069200804858757054
+A timestamp of when the benchmark started (ms)   - 1504897473719
+--------------------------------------------------------------------------------------
+Suite name: Mapping 1000 objects to schema
+The time taken to complete the last cycle (secs) - 0.06910863497037043
+The time taken to complete the benchmark (secs)  - 21.891
+The time taken to execute the test once (secs)   - 0.06910863497037043
+A timestamp of when the benchmark started (ms)   - 1504897489137
+--------------------------------------------------------------------------------------
+```
 
 # License
  [MIT](/LICENSE)
