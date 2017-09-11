@@ -1,9 +1,18 @@
 # js-schema-mapper
 
+This project is a data facade between your application and internal or external data provider. The mapper is dedicated to be use in backend Node JS applications.
+
+# Motivation
+
+Most of the time when we are connected to external or internal data provider to develop bakcend server application
+that is gonna be use by our frontend application we are not sure if the contract from data provider gonna be keep. Sometimes happen that sorts of the properties are missing or they are delivered in different type then for example in our application forntend or backend we needs to use branching to detect this kind of wireds. To eliminate or fast detect where the problem was happen the schema mapper was develop. The mapper provide errors messages that could be log and in future analyze to improve data quality.
 
 # Examples
 
-## Basic mapping
+Examples are just overview to show core functionality for complete specification it is 
+better to look at [unit test](/test/index.js)
+
+-  Basic mapping
 
 ```javascript
 const Mapper = require('js-schema-mapper');
@@ -30,34 +39,7 @@ console.log(data);
 // }
 ```
 
-## Basic mapping
-
-```javascript
-const Mapper = require('js-schema-mapper');
-
-const person = Mapper.schema({
-    id: Number,
-    name: String,
-    surname: String
-});
-
-const data = person.map({
-    id: 1,
-    name: 'Hiro',
-    surname: 'Hito'
-});
-
-console.log(data.result);
-
-// output
-// {
-//    id: 1,
-//    name: 'Hiro',
-//    surname: 'Hito'
-// }
-```
-
-## Mapping to default values when data have different type
+- Mapping to default values when data have different type
 
 ```javascript
 const Mapper = require('js-schema-mapper');
@@ -85,7 +67,7 @@ console.log(data.result);
 ```
 
 
-## Mapping to default values when data have missing properties
+- Mapping to default values when data have missing properties
 
 ```javascript
 const Mapper = require('js-schema-mapper');
@@ -112,7 +94,7 @@ console.log(data.result);
 ```
 
 
-## Mapping nested schema definitions
+- Mapping nested schema definitions
 
 ```javascript
 const Mapper = require('js-schema-mapper');
@@ -145,7 +127,7 @@ console.log(data.result);
 // }
 ```
 
-## Mapping collection of primitives values
+- Mapping collection of primitives values
 
 ```javascript
 const Mapper = require('js-schema-mapper');
@@ -172,7 +154,7 @@ console.log(data.result);
 // }
 ```
 
-## Mapping collection of objects
+- Mapping collection of objects
 
 ```javascript
 const Mapper = require('js-schema-mapper');
