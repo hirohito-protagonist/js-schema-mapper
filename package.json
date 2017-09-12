@@ -7,7 +7,8 @@
     "test": "lab -t 100",
     "test-cov-html": "lab -r html -o coverage.html",
     "perf": "node ./benchmark/index.js",
-    "prepush": "npm t"
+    "prepush": "npm t",
+    "commitmsg": "validate-commit-msg"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "benchmark": "^2.1.4",
     "husky": "^0.14.3",
-    "lab": "^14.2.0"
+    "lab": "^14.2.0",
+    "validate-commit-msg": "^2.14.0"
   }
 }
