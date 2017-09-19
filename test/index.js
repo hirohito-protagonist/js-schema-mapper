@@ -29,7 +29,7 @@ describe('Mapper', () => {
         expect(person.map(() => {}).result).to.equal(expected);
         expect(person.map(new Date()).result).to.equal(expected);
         expect(person.map(/[a-z]/).result).to.equal(expected);
-        expect(person.map([]).result).to.equal([]);
+        expect(person.map([]).result).to.equal(expected);
         done();
     });
 
@@ -38,7 +38,6 @@ describe('Mapper', () => {
         const person = Mapper.schema({});
 
         expect(person.map({})).to.equal({
-            isCollection: false,
             result: {},
             errors: []
         });
@@ -161,26 +160,51 @@ describe('Mapper', () => {
         done();
     });
 
-    it('should map from source collection', (done) => {
 
-        const person = Mapper.schema({
-            name: String
+
+    describe('When map from collection', () => {
+
+        it('should by default in result return empty collection when source is not collection', (done) => {
+
+
+            const person = Mapper.schema({
+                name: String,
+                tags: [{
+                    id: Number
+                }]
+            });
+            expect(person.mapFromCollection().result).to.equal([]);
+            expect(person.mapFromCollection(null).result).to.equal([]);
+            expect(person.mapFromCollection(true).result).to.equal([]);
+            expect(person.mapFromCollection(1).result).to.equal([]);
+            expect(person.mapFromCollection('').result).to.equal([]);
+            expect(person.mapFromCollection(() => {}).result).to.equal([]);
+            expect(person.mapFromCollection(new Date()).result).to.equal([]);
+            expect(person.mapFromCollection(/[a-z]/).result).to.equal([]);
+            expect(person.mapFromCollection([]).result).to.equal([]);
+            done();
         });
 
-        expect(person.map([
-            { name: 'Hiro' },
-            { name: 123 }
-        ])).to.equal({
-            isCollection: true,
-            result: [
+        it('should map and collect data', (done) => {
+            
+            const person = Mapper.schema({
+                name: String
+            });
+    
+            expect(person.mapFromCollection([
                 { name: 'Hiro' },
-                { name: '' }
-            ],
-            errors: [
-                '<name> property expected to be a String but it was Number'
-            ]
+                { name: 123 }
+            ])).to.equal({
+                result: [
+                    { name: 'Hiro' },
+                    { name: '' }
+                ],
+                errors: [
+                    '<name> property expected to be a String but it was Number'
+                ]
+            });
+            done();
         });
-        done();
     });
 
     describe('When nested schema definition', () => {
