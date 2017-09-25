@@ -4,8 +4,11 @@ This project is a data facade between your application and internal or external 
 
 # Motivation
 
-Most of the time when we are connected to external or internal data provider to develop bakcend server application
-that is gonna be use by our frontend application we are not sure if the contract from data provider gonna be keep. Sometimes happen that sorts of the properties are missing or they are delivered in different type then for example in our application forntend or backend we needs to use branching to detect this kind of wireds. To eliminate or fast detect where the problem was happen the schema mapper was develop. The mapper provide errors messages that could be log and in future analyze to improve data quality.
+- Eliminate branching code with detection if properties from json was delivered.
+  For example instead of write something like this `prop && prop.name ? prop.name : '' ` it is better to write
+  just `prop.name` and to be sure what default value will be if the property will be missing.
+- Faster detection if the bug in application is cause by data inconsistency. Something like we expect
+  boolean but there was delivered string or object but we have primitive value.
 
 # Examples
 
@@ -221,27 +224,27 @@ npm run perf
 
 Example benchmark output:
 ```bash
-Mapping 10 objects to schema x 1,452 ops/sec ±1.16% (178 runs sampled)
-Mapping 100 objects to schema x 145 ops/sec ±1.25% (177 runs sampled)
-Mapping 1000 objects to schema x 14.47 ops/sec ±1.12% (135 runs sampled)
+Mapping 10 objects to schema x 1,457 ops/sec ±3.31% (165 runs sampled)
+Mapping 100 objects to schema x 158 ops/sec ±2.23% (168 runs sampled)
+Mapping 1000 objects to schema x 16.67 ops/sec ±2.95% (145 runs sampled)
 --------------------------------------------------------------------------------------
 Suite name: Mapping 10 objects to schema
-The time taken to complete the last cycle (secs) - 0.055801548022104436
-The time taken to complete the benchmark (secs)  - 15.225
-The time taken to execute the test once (secs)   - 0.0006889080002728942
-A timestamp of when the benchmark started (ms)   - 1504897458435
+The time taken to complete the last cycle (secs) - 0.06793935241207442
+The time taken to complete the benchmark (secs)  - 15.137
+The time taken to execute the test once (secs)   - 0.0006862560849704488
+A timestamp of when the benchmark started (ms)   - 1505763021356
 --------------------------------------------------------------------------------------
 Suite name: Mapping 100 objects to schema
-The time taken to complete the last cycle (secs) - 0.055360643887005644
-The time taken to complete the benchmark (secs)  - 15.386
-The time taken to execute the test once (secs)   - 0.0069200804858757054
-A timestamp of when the benchmark started (ms)   - 1504897473719
+The time taken to complete the last cycle (secs) - 0.06331102804960319
+The time taken to complete the benchmark (secs)  - 15.411
+The time taken to execute the test once (secs)   - 0.006331102804960319
+A timestamp of when the benchmark started (ms)   - 1505763036600
 --------------------------------------------------------------------------------------
 Suite name: Mapping 1000 objects to schema
-The time taken to complete the last cycle (secs) - 0.06910863497037043
-The time taken to complete the benchmark (secs)  - 21.891
-The time taken to execute the test once (secs)   - 0.06910863497037043
-A timestamp of when the benchmark started (ms)   - 1504897489137
+The time taken to complete the last cycle (secs) - 0.05997882990344831
+The time taken to complete the benchmark (secs)  - 20.482
+The time taken to execute the test once (secs)   - 0.05997882990344831
+A timestamp of when the benchmark started (ms)   - 1505763052032
 --------------------------------------------------------------------------------------
 ```
 
