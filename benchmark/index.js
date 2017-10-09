@@ -12,13 +12,13 @@ const suite = new Benchmark.Suite();
 // add tests
 suite
 .add('Mapping 10 objects to schema', () => {
-    data.mapFromCollection(Items10);
+    data.map(Items10);
 }, { minSamples: 100 })
 .add('Mapping 100 objects to schema', () => {
-    data.mapFromCollection(Items100);
+    data.map(Items100);
 }, { minSamples: 100 })
 .add('Mapping 1000 objects to schema', () => {
-    data.mapFromCollection(Items1000);
+    data.map(Items1000);
 }, { minSamples: 100 })
 .on('cycle', (event) => {
   console.log(String(event.target));

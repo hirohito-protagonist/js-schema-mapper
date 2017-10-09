@@ -21,15 +21,15 @@ describe('Mapper', () => {
             name: '',
             tags: []
         };
-        expect(person.map().result).to.equal(expected);
-        expect(person.map(null).result).to.equal(expected);
-        expect(person.map(true).result).to.equal(expected);
-        expect(person.map(1).result).to.equal(expected);
-        expect(person.map('').result).to.equal(expected);
-        expect(person.map(() => {}).result).to.equal(expected);
-        expect(person.map(new Date()).result).to.equal(expected);
-        expect(person.map(/[a-z]/).result).to.equal(expected);
-        expect(person.map([]).result).to.equal(expected);
+        expect(person.mapFromObject().result).to.equal(expected);
+        expect(person.mapFromObject(null).result).to.equal(expected);
+        expect(person.mapFromObject(true).result).to.equal(expected);
+        expect(person.mapFromObject(1).result).to.equal(expected);
+        expect(person.mapFromObject('').result).to.equal(expected);
+        expect(person.mapFromObject(() => {}).result).to.equal(expected);
+        expect(person.mapFromObject(new Date()).result).to.equal(expected);
+        expect(person.mapFromObject(/[a-z]/).result).to.equal(expected);
+        expect(person.mapFromObject([]).result).to.equal(expected);
         done();
     });
 
@@ -37,7 +37,7 @@ describe('Mapper', () => {
         
         const person = Mapper.schema({});
 
-        expect(person.map({})).to.equal({
+        expect(person.mapFromObject({})).to.equal({
             result: {},
             errors: []
         });
@@ -53,7 +53,7 @@ describe('Mapper', () => {
             male: Boolean
         });
 
-        expect(person.map({}).result).to.equal({
+        expect(person.mapFromObject({}).result).to.equal({
             id: 0,
             name: '',
             surname: '',
@@ -71,7 +71,7 @@ describe('Mapper', () => {
             male: Boolean
         });
 
-        expect(person.map({
+        expect(person.mapFromObject({
             name: 'Hiro',
             address: 'unknown'
         }).result).to.equal({
@@ -92,7 +92,7 @@ describe('Mapper', () => {
             male: Boolean
         });
 
-        expect(person.map({
+        expect(person.mapFromObject({
             id: '123',
             name: 'Hiro',
             address: 'unknown',
@@ -116,7 +116,7 @@ describe('Mapper', () => {
             address: Object
         });
 
-        expect(person.map({
+        expect(person.mapFromObject({
             id: '123',
             name: 'Hiro',
             address: {
@@ -145,7 +145,7 @@ describe('Mapper', () => {
             friends: Array
         });
 
-        expect(person.map({
+        expect(person.mapFromObject({
             id: '123',
             name: 'Hiro',
             male: 1,
@@ -222,7 +222,7 @@ describe('Mapper', () => {
                 }
             });
 
-            expect(person.map({
+            expect(person.mapFromObject({
                 name: 'Hiro',
                 location: {
                     city: 'Hope',
@@ -255,7 +255,7 @@ describe('Mapper', () => {
                 }
             });
     
-            expect(person.map({
+            expect(person.mapFromObject({
                 name: 'Hiro',
                 location: {}
             }).result).to.equal({
@@ -285,7 +285,7 @@ describe('Mapper', () => {
                 }
             });
     
-            expect(person.map({
+            expect(person.mapFromObject({
                 name: 'Hiro',
                 location: null
             }).result).to.equal({
@@ -315,7 +315,7 @@ describe('Mapper', () => {
                 }
             });
     
-            expect(person.map({
+            expect(person.mapFromObject({
                 name: 'Hiro'
             }).result).to.equal({
                 id: 0,
@@ -343,7 +343,7 @@ describe('Mapper', () => {
                 tags: [String]
             });
 
-            expect(person.map({
+            expect(person.mapFromObject({
                 name: 'Hiro',
                 tags: ['a', 'b', 'c']
             }).result).to.equal({
@@ -365,7 +365,7 @@ describe('Mapper', () => {
                 tags: [String]
             });
 
-            expect(person.map({
+            expect(person.mapFromObject({
                 name: 'Hiro',
                 tags: ['a', true, 'c', 1]
             }).result).to.equal({
@@ -384,11 +384,11 @@ describe('Mapper', () => {
                 tags: [String]
             });
 
-            expect(person.map({}).result).to.equal({
+            expect(person.mapFromObject({}).result).to.equal({
                 tags: []
             });
 
-            expect(person.map({
+            expect(person.mapFromObject({
                 tags: null
             }).result).to.equal({
                 tags: []
@@ -405,7 +405,7 @@ describe('Mapper', () => {
                 }]
             });
 
-            expect(person.map({
+            expect(person.mapFromObject({
                 tags: [
                     { id: 1, value: 'a' },
                     { id: 2, value: 'b' }
@@ -431,7 +431,7 @@ describe('Mapper', () => {
             }]
         });
 
-        expect(person.map({
+        expect(person.mapFromObject({
             tags: [
                 { 
                     id: 1,
@@ -460,7 +460,7 @@ describe('Mapper', () => {
                 tags: [Boolean]
             });
 
-            expect(person.map({
+            expect(person.mapFromObject({
                 id: '1',
                 name: 12,
                 surname: false,
@@ -483,12 +483,55 @@ describe('Mapper', () => {
                 tags: [Boolean]
             });
 
-            expect(person.map({}).errors).to.equal([
+            expect(person.mapFromObject({}).errors).to.equal([
                 '<id> property is missing',
                 '<name> property is missing',
                 '<surname> property is missing',
                 '<tags> property is missing'
             ]);
+            done();
+        });
+    });
+
+    describe('When map', () => {
+
+        it('should collect fom collection source', (done) => {
+
+            const person = Mapper.schema({
+                name: String
+            });
+    
+            expect(person.map([
+                { name: 'Hiro' },
+                { name: 123 }
+            ])).to.equal({
+                result: [
+                    { name: 'Hiro' },
+                    { name: '' }
+                ],
+                errors: [
+                    '<name> property expected to be a String but it was Number'
+                ]
+            });
+            done();
+        });
+
+        it('should collect fom object source', (done) => {
+            
+            const person = Mapper.schema({
+                name: String
+            });
+    
+            expect(person.map(
+                { name: 123 }
+            )).to.equal({
+                result: [
+                    { name: '' }
+                ],
+                errors: [
+                    '<name> property expected to be a String but it was Number'
+                ]
+            });
             done();
         });
     });

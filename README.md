@@ -26,7 +26,7 @@ const person = Mapper.schema({
     surname: String
 });
 
-const data = person.map({
+const data = person.mapFromObject({
     id: 1,
     name: 'Hiro',
     surname: 'Hito'
@@ -53,7 +53,7 @@ const person = Mapper.schema({
     surname: String
 });
 
-const data = person.map({
+const data = person.mapFromObject({
     id: '1',
     name: 123,
     surname: 123
@@ -81,7 +81,7 @@ const person = Mapper.schema({
     surname: String
 });
 
-const data = person.map({
+const data = person.mapFromObject({
     id: 1,
     name: 'Hiro'
 });
@@ -110,7 +110,7 @@ const person = Mapper.schema({
     }
 });
 
-const data = person.map({
+const data = person.mapFromObject({
     id: 1,
     name: 'Hiro',
     address: {
@@ -141,7 +141,7 @@ const person = Mapper.schema({
     tags: [String]
 });
 
-const data = person.map({
+const data = person.mapFromObject({
     id: 1,
     name: 'Hiro',
     tags: ['a', 'b']
@@ -171,7 +171,7 @@ const person = Mapper.schema({
     }]
 });
 
-const data = person.map({
+const data = person.mapFromObject({
     id: 1,
     name: 'Hiro',
     tags: [
@@ -204,6 +204,37 @@ console.log(data.result);
 //    ]
 // }
 ```
+
+# API
+
+#### schema
+`Mapper.schema(schemaDefinition: Object)`
+
+returns
+
+`{ mapFromCollection: Function, mapFromObject: Function, map: Function }`
+
+### mapFromCollection
+`mapFromCollection(source: Array)`
+
+returns
+
+`{ result: Array, errors: Array }`
+
+### mapFromObject
+`mapFromObject(source: Object)`
+
+returns
+
+`{ result: Object, errors: Array }`
+
+### map
+`map(source: Object|Array)`
+
+returns
+
+`{ result: Object, errors: Array }`
+
 # Benchmark
 
 This benchmark is just overview how fast is the schema mapper and the speed depends on 
@@ -224,27 +255,27 @@ npm run perf
 
 Example benchmark output:
 ```bash
-Mapping 10 objects to schema x 1,457 ops/sec ±3.31% (165 runs sampled)
-Mapping 100 objects to schema x 158 ops/sec ±2.23% (168 runs sampled)
-Mapping 1000 objects to schema x 16.67 ops/sec ±2.95% (145 runs sampled)
+Mapping 10 objects to schema x 1,397 ops/sec ±1.09% (181 runs sampled)
+Mapping 100 objects to schema x 140 ops/sec ±1.51% (174 runs sampled)
+Mapping 1000 objects to schema x 13.36 ops/sec ±2.70% (134 runs sampled)
 --------------------------------------------------------------------------------------
 Suite name: Mapping 10 objects to schema
-The time taken to complete the last cycle (secs) - 0.06793935241207442
-The time taken to complete the benchmark (secs)  - 15.137
-The time taken to execute the test once (secs)   - 0.0006862560849704488
-A timestamp of when the benchmark started (ms)   - 1505763021356
+The time taken to complete the last cycle (secs) - 0.05512035162280196
+The time taken to complete the benchmark (secs)  - 15.461
+The time taken to execute the test once (secs)   - 0.0007158487223740515
+A timestamp of when the benchmark started (ms)   - 1507572591962
 --------------------------------------------------------------------------------------
 Suite name: Mapping 100 objects to schema
-The time taken to complete the last cycle (secs) - 0.06331102804960319
-The time taken to complete the benchmark (secs)  - 15.411
-The time taken to execute the test once (secs)   - 0.006331102804960319
-A timestamp of when the benchmark started (ms)   - 1505763036600
+The time taken to complete the last cycle (secs) - 0.05705801282922823
+The time taken to complete the benchmark (secs)  - 15.651
+The time taken to execute the test once (secs)   - 0.007132251603653529
+A timestamp of when the benchmark started (ms)   - 1507572607479
 --------------------------------------------------------------------------------------
 Suite name: Mapping 1000 objects to schema
-The time taken to complete the last cycle (secs) - 0.05997882990344831
-The time taken to complete the benchmark (secs)  - 20.482
-The time taken to execute the test once (secs)   - 0.05997882990344831
-A timestamp of when the benchmark started (ms)   - 1505763052032
+The time taken to complete the last cycle (secs) - 0.07483410380597016
+The time taken to complete the benchmark (secs)  - 23.448
+The time taken to execute the test once (secs)   - 0.07483410380597016
+A timestamp of when the benchmark started (ms)   - 1507572623148
 --------------------------------------------------------------------------------------
 ```
 
