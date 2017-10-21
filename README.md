@@ -13,7 +13,7 @@ This project is a data facade between your application and internal or external 
 # Examples
 
 Examples are just overview to show core functionality for complete specification it is 
-better to look at [unit test](/test/index.js)
+better to look at [unit test](/test/mapper.js)
 
 -  Basic mapping
 
@@ -207,33 +207,7 @@ console.log(data.result);
 
 # API
 
-#### schema
-`Mapper.schema(schemaDefinition: Object)`
-
-returns
-
-`{ mapFromCollection: Function, mapFromObject: Function, map: Function }`
-
-### mapFromCollection
-`mapFromCollection(source: Array)`
-
-returns
-
-`{ result: Array, errors: Array }`
-
-### mapFromObject
-`mapFromObject(source: Object)`
-
-returns
-
-`{ result: Object, errors: Array }`
-
-### map
-`map(source: Object|Array)`
-
-returns
-
-`{ result: Object, errors: Array }`
+See the detailed [API Reference](/API.md).
 
 # Benchmark
 
