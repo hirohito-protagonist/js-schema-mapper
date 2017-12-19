@@ -66,6 +66,35 @@ returns
 
 `{ result: Object, errors: Array }`
 
+Examples:
+```javascript
+const Mapper = require('js-schema-mapper');
+
+const person = Mapper.schema({
+    id: Number,
+    name: String,
+    surname: String
+});
+
+const data = person.mapFromObject({
+    id: 1,
+    name: 'Hiro',
+    surname: 'Hito'
+});
+```
+
+```javascript
+// Output
+{
+    result: {
+        id: 1,
+        name: 'Hiro',
+        surname: 'Hito'
+    },
+    errors: []
+}
+```
+
 ### `map(source: Object|Array)`
 
 returns
