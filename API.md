@@ -99,4 +99,66 @@ const data = person.mapFromObject({
 
 returns
 
-`{ result: Object, errors: Array }`
+`{ result: Array, errors: Array }`
+
+Examples:
+```javascript
+const Mapper = require('js-schema-mapper');
+
+const person = Mapper.schema({
+    id: Number,
+    name: String,
+    surname: String
+});
+
+const data = person.map([{
+    id: 1,
+    name: 'Hiro',
+    surname: 'Hito'
+}]);
+```
+
+```javascript
+// Output
+{
+    result: [
+        {
+            id: 1,
+            name: 'Hiro',
+            surname: 'Hito'
+        }
+    ],
+    errors: []
+}
+```
+
+
+```javascript
+const Mapper = require('js-schema-mapper');
+
+const person = Mapper.schema({
+    id: Number,
+    name: String,
+    surname: String
+});
+
+const data = person.map({
+    id: 1,
+    name: 'Hiro',
+    surname: 'Hito'
+});
+```
+
+```javascript
+// Output
+{
+    result: [
+        {
+            id: 1,
+            name: 'Hiro',
+            surname: 'Hito'
+        }
+    ],
+    errors: []
+}
+```
