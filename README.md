@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](/LICENSE)
-[![Node](https://img.shields.io/badge/node-%3E=4.0.0-green.svg)](https://nodejs.org/en/)
+[![Node](https://img.shields.io/badge/node-%3E=8.0.0-green.svg)](https://nodejs.org/en/)
 ![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 

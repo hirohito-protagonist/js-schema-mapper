@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/hirohito-protagonist/js-schema-mapper#readme",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=8.0.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
