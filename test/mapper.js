@@ -1,15 +1,12 @@
+const { expect } = require('code');
 const Lab = require('lab');
-const lab = exports.lab = Lab.script();
-
-const describe = lab.describe;
-const it = lab.it;
-const expect = Lab.expect;
+const { describe, it } = exports.lab = Lab.script();
 
 const Mapper = require('./../lib/mapper');
 
 describe('Mapper', () => {
 
-    it('should return schema with default values when source is different than literal object', (done) => {
+    it('should return schema with default values when source is different than literal object', () => {
         
         const schema = {
             name: String,
@@ -30,19 +27,17 @@ describe('Mapper', () => {
         expect(Mapper(schema, new Date()).result).to.equal(expected);
         expect(Mapper(schema, /[a-z]/).result).to.equal(expected);
         expect(Mapper(schema, []).result).to.equal(expected);
-        done();
     });
 
-    it('should return empty literal object when source is object and schema is empty', (done) => {
+    it('should return empty literal object when source is object and schema is empty', () => {
         
         expect(Mapper({}, {})).to.equal({
             result: {},
             errors: []
         });
-        done();
     });
 
-    it('should map schema definition when source is empty literal object', (done) => {
+    it('should map schema definition when source is empty literal object', () => {
         
         const schema = {
             id: Number,
@@ -57,10 +52,9 @@ describe('Mapper', () => {
             surname: '',
             male: false
         });
-        done();
     });
 
-    it('should map from source properties that are defined only in schema', (done) => {
+    it('should map from source properties that are defined only in schema', () => {
         
         const schema = {
             id: Number,
@@ -78,10 +72,9 @@ describe('Mapper', () => {
             surname: '',
             male: false
         });
-        done();
     });
 
-    it('should provide default data from schema when type mismatch is in provided source', (done) => {
+    it('should provide default data from schema when type mismatch is in provided source', () => {
         
         const schema = {
             id: Number,
@@ -101,10 +94,9 @@ describe('Mapper', () => {
             surname: '',
             male: false
         });
-        done();
     });
 
-    it('should map Object as it is when is set in schema', (done) => {
+    it('should map Object as it is when is set in schema', () => {
         
         const schema = {
             id: Number,
@@ -130,10 +122,9 @@ describe('Mapper', () => {
                 street: 'Metaverse'
             }
         });
-        done();
     });
 
-    it('should map Array as it is when is set in schema', (done) => {
+    it('should map Array as it is when is set in schema', () => {
         
         const schema = {
             id: Number,
@@ -155,12 +146,11 @@ describe('Mapper', () => {
             male: false,
             friends: ['Tim', 'Joe']
         });
-        done();
     });
 
     describe('When nested schema definition', () => {
         
-        it('should map with the provided source', (done) => {
+        it('should map with the provided source', () => {
             
             const schema = {
                 id: Number,
@@ -189,11 +179,9 @@ describe('Mapper', () => {
                     country: 'Freedom'
                 }
             });
-
-            done();
         });
 
-        it('should provide default object from schema when in source matched object is empty', (done) => {
+        it('should provide default object from schema when in source matched object is empty', () => {
             
             const schema = {
                 id: Number,
@@ -219,11 +207,9 @@ describe('Mapper', () => {
                     country: ''
                 }
             });
-    
-            done();
         });
 
-        it('should provide default object from schema when in source matched object is null', (done) => {
+        it('should provide default object from schema when in source matched object is null', () => {
             
             const schema = {
                 id: Number,
@@ -249,11 +235,9 @@ describe('Mapper', () => {
                     country: ''
                 }
             });
-    
-            done();
         });
 
-        it('should provide default object from schema when in source matched object is not defined', (done) => {
+        it('should provide default object from schema when in source matched object is not defined', () => {
             
             const schema = {
                 id: Number,
@@ -278,14 +262,12 @@ describe('Mapper', () => {
                     country: ''
                 }
             });
-    
-            done();
         });
     });
 
     describe('When nested collection schema definition', () => {
         
-        it('should collect primitives values', (done) => {
+        it('should collect primitives values', () => {
 
             const schema = {
                 id: Number,
@@ -303,11 +285,9 @@ describe('Mapper', () => {
                 surname: '',
                 tags: ['a', 'b', 'c']
             });
-
-            done();
         });
 
-        it('should for mixed type array values provide default type value defined in schema', (done) => {
+        it('should for mixed type array values provide default type value defined in schema', () => {
             
             const schema = {
                 id: Number,
@@ -325,11 +305,9 @@ describe('Mapper', () => {
                 surname: '',
                 tags: ['a', '', 'c', '']
             });
-
-            done();
         });
 
-        it('should return empty array when in source matched property is not array', (done) => {
+        it('should return empty array when in source matched property is not array', () => {
             
             const schema = {
                 tags: [String]
@@ -344,10 +322,9 @@ describe('Mapper', () => {
             }).result).to.equal({
                 tags: []
             });
-            done();
         });
 
-        it('should collect objects', (done) => {
+        it('should collect objects', () => {
             
             const schema = {
                 tags: [{
@@ -367,11 +344,10 @@ describe('Mapper', () => {
                     { id: 2, value: 'b' }
                 ]
             });
-            done();
         });
     });
 
-    it('should collect deep array schema definitions', (done) => {
+    it('should collect deep array schema definitions', () => {
         
         const schema = {
             tags: [{
@@ -397,12 +373,11 @@ describe('Mapper', () => {
                 }
             ]
         });
-        done();
     });
 
     describe('When errors on mapping', () => {
         
-        it('should collect unmatched type information', (done) => {
+        it('should collect unmatched type information', () => {
 
             const schema = {
                 id: Number,
@@ -422,10 +397,9 @@ describe('Mapper', () => {
                 '<surname> property expected to be a String but it was Boolean',
                 '<tags[0]> property expected to be a Boolean but it was String'
             ]);
-            done();
         });
 
-        it('should collect missing property type information', (done) => {
+        it('should collect missing property type information', () => {
             
             const schema = {
                 id: Number,
@@ -440,7 +414,6 @@ describe('Mapper', () => {
                 '<surname> property is missing',
                 '<tags> property is missing'
             ]);
-            done();
         });
     });
 });

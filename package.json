@@ -24,9 +24,10 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "benchmark": "^2.1.4",
-    "husky": "^0.14.3",
-    "lab": "^14.2.0",
-    "validate-commit-msg": "^2.14.0"
+    "benchmark": "2.1.4",
+    "code": "5.1.2",
+    "husky": "0.14.3",
+    "lab": "15.2.0",
+    "validate-commit-msg": "2.14.0"
   }
 }

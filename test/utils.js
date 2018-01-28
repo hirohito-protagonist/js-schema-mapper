@@ -1,9 +1,6 @@
+const { expect } = require('code');
 const Lab = require('lab');
-const lab = exports.lab = Lab.script();
-
-const describe = lab.describe;
-const it = lab.it;
-const expect = Lab.expect;
+const { describe, it } = exports.lab = Lab.script();
 
 const Utils = require('./../lib/utils');
 
@@ -11,7 +8,7 @@ describe('Utils', () => {
 
     describe('isType', () => {
 
-        it('should works with built-in types', (done) => {
+        it('should works with built-in types', () => {
 
             expect(Utils.isType(String, '')).to.equal(true);
             expect(Utils.isType(Boolean, true)).to.equal(true);
@@ -22,10 +19,9 @@ describe('Utils', () => {
             expect(Utils.isType(Function, () => {})).to.equal(true);
             expect(Utils.isType(RegExp, /([A-z])/)).to.equal(true);
             expect(Utils.isType(Date, new Date())).to.equal(true);
-            done();
         });
 
-        it('should works with type constructors', (done) => {
+        it('should works with type constructors', () => {
             
             expect(Utils.isType(String, new String(''))).to.equal(true);
             expect(Utils.isType(Boolean, new Boolean())).to.equal(true);
@@ -35,26 +31,23 @@ describe('Utils', () => {
             expect(Utils.isType(Function, new Function())).to.equal(true);
             expect(Utils.isType(RegExp, new RegExp(/([A-z])/))).to.equal(true);
             expect(Utils.isType(Date, new Date())).to.equal(true);
-            done();
         });
 
-        it('should not coerce', (done) => {
+        it('should not coerce', () => {
             
             expect(Utils.isType(Boolean, 1)).to.equal(false);
             expect(Utils.isType(Number, '1')).to.equal(false);
             expect(Utils.isType(Number, false)).to.equal(false);
-            done();
         });
 
-        it('should not consider primitives to be instance of Object', (done) => {
+        it('should not consider primitives to be instance of Object', () => {
             
             expect(Utils.isType(Object, false)).to.equal(false);
             expect(Utils.isType(Object, 0)).to.equal(false);
             expect(Utils.isType(Object, '')).to.equal(false);
-            done();
         });
 
-        it('should not match any type for null and undefined', (done) => {
+        it('should not match any type for null and undefined', () => {
 
             expect(Utils.isType(String, null)).to.equal(false);
             expect(Utils.isType(Boolean, null)).to.equal(false);
@@ -73,7 +66,6 @@ describe('Utils', () => {
             expect(Utils.isType(Function, undefined)).to.equal(false);
             expect(Utils.isType(RegExp, undefined)).to.equal(false);
             expect(Utils.isType(Date, undefined)).to.equal(false);
-            done();
         });
     });
 });
