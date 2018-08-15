@@ -84,27 +84,27 @@ npm run perf
 
 Example benchmark output:
 ```bash
-Mapping 10 objects to schema x 2,552 ops/sec ±1.16% (177 runs sampled)
-Mapping 100 objects to schema x 258 ops/sec ±1.13% (168 runs sampled)
-Mapping 1000 objects to schema x 25.45 ops/sec ±1.09% (139 runs sampled)
+Mapping 10 objects to schema x 2,547 ops/sec ±1.29% (175 runs sampled)
+Mapping 100 objects to schema x 261 ops/sec ±1.65% (163 runs sampled)
+Mapping 1000 objects to schema x 25.44 ops/sec ±1.31% (138 runs sampled)
 --------------------------------------------------------------------------------------
 Suite name: Mapping 10 objects to schema
-The time taken to complete the last cycle (secs) - 0.05642811378879087
-The time taken to complete the benchmark (secs)  - 14.495
-The time taken to execute the test once (secs)   - 0.0003918619013110477
-A timestamp of when the benchmark started (ms)   - 1517096649708
+The time taken to complete the last cycle (secs) - 0.058886015200724964
+The time taken to complete the benchmark (secs)  - 13.677
+The time taken to execute the test once (secs)   - 0.00039257343467149976
+A timestamp of when the benchmark started (ms)   - 1534356127039
 --------------------------------------------------------------------------------------
 Suite name: Mapping 100 objects to schema
-The time taken to complete the last cycle (secs) - 0.061960002217687105
-The time taken to complete the benchmark (secs)  - 14.623
-The time taken to execute the test once (secs)   - 0.003872500138605444
-A timestamp of when the benchmark started (ms)   - 1517096664222
+The time taken to complete the last cycle (secs) - 0.06505252866474952
+The time taken to complete the benchmark (secs)  - 13.905
+The time taken to execute the test once (secs)   - 0.00382661933322056
+A timestamp of when the benchmark started (ms)   - 1534356140730
 --------------------------------------------------------------------------------------
 Suite name: Mapping 1000 objects to schema
-The time taken to complete the last cycle (secs) - 0.07859212646043166
-The time taken to complete the benchmark (secs)  - 19.456
-The time taken to execute the test once (secs)   - 0.03929606323021583
-A timestamp of when the benchmark started (ms)   - 1517096678858
+The time taken to complete the last cycle (secs) - 0.07862755826086962
+The time taken to complete the benchmark (secs)  - 18.682
+The time taken to execute the test once (secs)   - 0.03931377913043481
+A timestamp of when the benchmark started (ms)   - 1534356154645
 --------------------------------------------------------------------------------------
 ```
 
