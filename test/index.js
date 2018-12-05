@@ -10,11 +10,16 @@ describe('API', () => {
         
         it('should provide default schema result when the source is primitive value', () => {
 
+            // Given
             const person = Mapper.schema({
                 name: String
             });
+
+            // When
+            const result = person.mapFromObject(123);
     
-            expect(person.mapFromObject(123)).to.equal({
+            // Then
+            expect(result).to.equal({
                 result: { name: '' },
                 errors: [
                     '<name> property is missing'
@@ -24,13 +29,18 @@ describe('API', () => {
 
         it('should collect from object source', () => {
             
+            // Given
             const person = Mapper.schema({
                 name: String
             });
     
-            expect(person.mapFromObject(
+            // When
+            const result = person.mapFromObject(
                 { name: 123 }
-            )).to.equal({
+            );
+
+            // Then
+            expect(result).to.equal({
                 result: { name: '' },
                 errors: [
                     '<name> property expected to be a String but it was Number'
@@ -43,11 +53,16 @@ describe('API', () => {
 
         it('should provide empty array result when the source is primitive value', () => {
 
+            // Given
             const person = Mapper.schema({
                 name: String
             });
+
+            // When
+            const result = person.mapFromCollection(123);
     
-            expect(person.mapFromCollection(123)).to.equal({
+            // Then
+            expect(result).to.equal({
                 result: [],
                 errors: []
             });
@@ -55,14 +70,19 @@ describe('API', () => {
 
         it('should collect fom collection source', () => {
 
+            // Given
             const person = Mapper.schema({
                 name: String
             });
-    
-            expect(person.mapFromCollection([
+
+            // When
+            const result = person.mapFromCollection([
                 { name: 'Hiro' },
                 { name: 123 }
-            ])).to.equal({
+            ]);
+    
+            // Then
+            expect(result).to.equal({
                 result: [
                     { name: 'Hiro' },
                     { name: '' }
@@ -78,11 +98,16 @@ describe('API', () => {
 
         it('should provide default schema result when the source is primitive value', () => {
 
+            // Given
             const person = Mapper.schema({
                 name: String
             });
+
+            // When
+            const result = person.map(123);
     
-            expect(person.map(123)).to.equal({
+            // Then
+            expect(result).to.equal({
                 result: [
                     { name: '' }
                 ],
@@ -94,14 +119,19 @@ describe('API', () => {
 
         it('should collect fom collection source', () => {
 
+            // Given
             const person = Mapper.schema({
                 name: String
             });
-    
-            expect(person.map([
+
+            // When
+            const result = person.map([
                 { name: 'Hiro' },
                 { name: 123 }
-            ])).to.equal({
+            ]);
+    
+            // Then
+            expect(result).to.equal({
                 result: [
                     { name: 'Hiro' },
                     { name: '' }
@@ -114,13 +144,18 @@ describe('API', () => {
 
         it('should collect from object source', () => {
             
+            // Given
             const person = Mapper.schema({
                 name: String
             });
-    
-            expect(person.map(
+
+            // When
+            const result = person.map(
                 { name: 123 }
-            )).to.equal({
+            );
+    
+            // Then
+            expect(result).to.equal({
                 result: [
                     { name: '' }
                 ],
