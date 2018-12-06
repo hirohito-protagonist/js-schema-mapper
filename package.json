@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "benchmark": "2.1.4",
-    "code": "5.2.0",
+    "code": "5.2.4",
     "husky": "0.14.3",
-    "lab": "15.5.0",
+    "lab": "18.0.0",
     "validate-commit-msg": "2.14.0"
   }
 }
