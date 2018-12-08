@@ -30,8 +30,16 @@ describe('Mapper', () => {
     });
 
     it('should return empty literal object when source is object and schema is empty', () => {
-        
-        expect(Mapper({}, {})).to.equal({
+
+        // Given
+        const schema = {};
+        const source = {};
+
+        // When
+        const result = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             result: {},
             errors: []
         });
@@ -39,14 +47,20 @@ describe('Mapper', () => {
 
     it('should map schema definition when source is empty literal object', () => {
         
+        // Given
         const schema = {
             id: Number,
             name: String,
             surname: String,
             male: Boolean
         };
+        const source = {};
 
-        expect(Mapper(schema, {}).result).to.equal({
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             id: 0,
             name: '',
             surname: '',
@@ -56,17 +70,23 @@ describe('Mapper', () => {
 
     it('should map from source properties that are defined only in schema', () => {
         
+        // Given
         const schema = {
             id: Number,
             name: String,
             surname: String,
             male: Boolean
         };
-
-        expect(Mapper(schema, {
+        const source = {
             name: 'Hiro',
             address: 'unknown'
-        }).result).to.equal({
+        };
+
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -76,19 +96,25 @@ describe('Mapper', () => {
 
     it('should provide default data from schema when type mismatch is in provided source', () => {
         
+        // Given
         const schema = {
             id: Number,
             name: String,
             surname: String,
             male: Boolean
         };
-
-        expect(Mapper(schema, {
+        const source = {
             id: '123',
             name: 'Hiro',
             address: 'unknown',
             male: 1
-        }).result).to.equal({
+        };
+
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -98,6 +124,7 @@ describe('Mapper', () => {
 
     it('should map Object as it is when is set in schema', () => {
         
+        // Given
         const schema = {
             id: Number,
             name: String,
@@ -105,15 +132,20 @@ describe('Mapper', () => {
             male: Boolean,
             address: Object
         };
-
-        expect(Mapper(schema, {
+        const source = {
             id: '123',
             name: 'Hiro',
             address: {
                 street: 'Metaverse'
             },
             male: 1
-        }).result).to.equal({
+        };
+
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -126,6 +158,7 @@ describe('Mapper', () => {
 
     it('should map Array as it is when is set in schema', () => {
         
+        // Given
         const schema = {
             id: Number,
             name: String,
@@ -133,13 +166,18 @@ describe('Mapper', () => {
             male: Boolean,
             friends: Array
         };
-
-        expect(Mapper(schema, {
+        const source = {
             id: '123',
             name: 'Hiro',
             male: 1,
             friends: ['Tim', 'Joe']
-        }).result).to.equal({
+        };
+
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             id: 0,
             name: 'Hiro',
             surname: '',
@@ -152,6 +190,7 @@ describe('Mapper', () => {
         
         it('should map with the provided source', () => {
             
+            // Given
             const schema = {
                 id: Number,
                 name: String,
@@ -162,14 +201,19 @@ describe('Mapper', () => {
                     country: String
                 }
             };
-
-            expect(Mapper(schema, {
+            const source = {
                 name: 'Hiro',
                 location: {
                     city: 'Hope',
                     country: 'Freedom'
                 }
-            }).result).to.equal({
+            };
+
+            // When
+            const { result } = Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -183,6 +227,7 @@ describe('Mapper', () => {
 
         it('should provide default object from schema when in source matched object is empty', () => {
             
+            // Given
             const schema = {
                 id: Number,
                 name: String,
@@ -193,11 +238,16 @@ describe('Mapper', () => {
                     country: String
                 }
             };
-    
-            expect(Mapper(schema, {
+            const source = {
                 name: 'Hiro',
                 location: {}
-            }).result).to.equal({
+            };
+
+            // When
+            const { result } = Mapper(schema, source);
+    
+            // Then
+            expect(result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -211,6 +261,7 @@ describe('Mapper', () => {
 
         it('should provide default object from schema when in source matched object is null', () => {
             
+            // Given
             const schema = {
                 id: Number,
                 name: String,
@@ -221,11 +272,16 @@ describe('Mapper', () => {
                     country: String
                 }
             };
-    
-            expect(Mapper(schema, {
+            const source = {
                 name: 'Hiro',
                 location: null
-            }).result).to.equal({
+            };
+    
+            // When
+            const { result } = Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -239,6 +295,7 @@ describe('Mapper', () => {
 
         it('should provide default object from schema when in source matched object is not defined', () => {
             
+            // Given
             const schema = {
                 id: Number,
                 name: String,
@@ -249,10 +306,15 @@ describe('Mapper', () => {
                     country: String
                 }
             };
-    
-            expect(Mapper(schema, {
+            const source = {
                 name: 'Hiro'
-            }).result).to.equal({
+            };
+
+            // When
+            const { result } = Mapper(schema, source);
+    
+            // Then
+            expect(result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -269,17 +331,23 @@ describe('Mapper', () => {
         
         it('should collect primitives values', () => {
 
+            // Given
             const schema = {
                 id: Number,
                 name: String,
                 surname: String,
                 tags: [String]
             };
-
-            expect(Mapper(schema, {
+            const source = {
                 name: 'Hiro',
                 tags: ['a', 'b', 'c']
-            }).result).to.equal({
+            };
+
+            // When
+            const { result } = Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -289,17 +357,23 @@ describe('Mapper', () => {
 
         it('should for mixed type array values provide default type value defined in schema', () => {
             
+            // Given
             const schema = {
                 id: Number,
                 name: String,
                 surname: String,
                 tags: [String]
             };
-
-            expect(Mapper(schema, {
+            const source = {
                 name: 'Hiro',
                 tags: ['a', true, 'c', 1]
-            }).result).to.equal({
+            };
+
+            // When
+            const { result } = Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 id: 0,
                 name: 'Hiro',
                 surname: '',
@@ -326,19 +400,25 @@ describe('Mapper', () => {
 
         it('should collect objects', () => {
             
+            // Given
             const schema = {
                 tags: [{
                     id: Number,
                     value: String
                 }]
             };
-
-            expect(Mapper(schema, {
+            const source = {
                 tags: [
                     { id: 1, value: 'a' },
                     { id: 2, value: 'b' }
                 ]
-            }).result).to.equal({
+            };
+
+            // When
+            const { result } = Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 tags: [
                     { id: 1, value: 'a' },
                     { id: 2, value: 'b' }
@@ -349,6 +429,7 @@ describe('Mapper', () => {
 
     it('should collect deep array schema definitions', () => {
         
+        // Given
         const schema = {
             tags: [{
                 id: Number,
@@ -357,15 +438,20 @@ describe('Mapper', () => {
                 }]
             }]
         };
-
-        expect(Mapper(schema, {
+        const source = {
             tags: [
                 { 
                     id: 1,
                     value: [ { name: 'a' }, { name : 'b'} ]
                 }
             ]
-        }).result).to.equal({
+        };
+
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
             tags: [
                 { 
                     id: 1,
@@ -379,19 +465,25 @@ describe('Mapper', () => {
         
         it('should collect unmatched type information', () => {
 
+            // Given
             const schema = {
                 id: Number,
                 name: String,
                 surname: String,
                 tags: [Boolean]
             };
-
-            expect(Mapper(schema, {
+            const source = {
                 id: '1',
                 name: 12,
                 surname: false,
                 tags: ['a']
-            }).errors).to.equal([
+            };
+
+            // When
+            const { errors } = Mapper(schema, source);
+
+            // Then
+            expect(errors).to.equal([
                 '<id> property expected to be a Number but it was String',
                 '<name> property expected to be a String but it was Number',
                 '<surname> property expected to be a String but it was Boolean',
@@ -401,14 +493,20 @@ describe('Mapper', () => {
 
         it('should collect missing property type information', () => {
             
+            // Given
             const schema = {
                 id: Number,
                 name: String,
                 surname: String,
                 tags: [Boolean]
             };
+            const source = {};
 
-            expect(Mapper(schema, {}).errors).to.equal([
+            // When
+            const { errors } = Mapper(schema, source);
+
+            // Then
+            expect(errors).to.equal([
                 '<id> property is missing',
                 '<name> property is missing',
                 '<surname> property is missing',
