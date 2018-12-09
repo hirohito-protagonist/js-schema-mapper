@@ -6,28 +6,40 @@ const Mapper = require('./../lib/mapper');
 
 describe('Mapper', () => {
 
-    it('should return schema with default values when source is different than literal object', () => {
+    [
+        void(0),
+        null,
+        true,
+        1,
+        '',
+        () => {},
+        new Date(),
+        /[a-z]/,
+        []
+    ].forEach((testData, index) => {
+
+        it(`Case ${index + 1}: should return schema with default values when source is different than literal object`, () => {
         
-        const schema = {
-            name: String,
-            tags: [{
-                id: Number
-            }]
-        };
-        const expected = {
-            name: '',
-            tags: []
-        };
-        expect(Mapper(schema).result).to.equal(expected);
-        expect(Mapper(schema, null).result).to.equal(expected);
-        expect(Mapper(schema, true).result).to.equal(expected);
-        expect(Mapper(schema, 1).result).to.equal(expected);
-        expect(Mapper(schema, '').result).to.equal(expected);
-        expect(Mapper(schema, () => {}).result).to.equal(expected);
-        expect(Mapper(schema, new Date()).result).to.equal(expected);
-        expect(Mapper(schema, /[a-z]/).result).to.equal(expected);
-        expect(Mapper(schema, []).result).to.equal(expected);
+            // Given
+            const schema = {
+                name: String,
+                tags: [{
+                    id: Number
+                }]
+            };
+            const expected = {
+                name: '',
+                tags: []
+            };
+
+            // When
+            const { result } = Mapper(schema, testData);
+
+            //Then
+            expect(result).to.equal(expected);
+        });
     });
+
 
     it('should return empty literal object when source is object and schema is empty', () => {
 
@@ -381,19 +393,38 @@ describe('Mapper', () => {
             });
         });
 
-        it('should return empty array when in source matched property is not array', () => {
+        it('should return empty array when in source matched property is null', () => {
             
+            // Given
             const schema = {
                 tags: [String]
             };
+            const source = {
+                tags: []
+            };
 
-            expect(Mapper(schema, {}).result).to.equal({
+            // When
+            const { result } =  Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 tags: []
             });
+        });
 
-            expect(Mapper(schema, {
-                tags: null
-            }).result).to.equal({
+        it('should return empty array when in source matched property is not exist', () => {
+            
+            // Given
+            const schema = {
+                tags: [String]
+            };
+            const source = {};
+
+            // When
+            const { result } =  Mapper(schema, source);
+
+            // Then
+            expect(result).to.equal({
                 tags: []
             });
         });
