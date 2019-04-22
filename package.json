@@ -24,10 +24,10 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
+    "@hapi/code": "5.3.1",
+    "@hapi/lab": "18.1.1",
     "benchmark": "2.1.4",
-    "code": "5.2.4",
     "husky": "0.14.3",
-    "lab": "18.0.0",
     "validate-commit-msg": "2.14.0"
   }
 }
