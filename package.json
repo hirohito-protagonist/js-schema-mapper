@@ -7,8 +7,7 @@
     "test": "lab -t 100",
     "test-cov-html": "lab -r html -o coverage.html",
     "perf": "node ./benchmark/index.js",
-    "prepush": "npm t",
-    "commitmsg": "commitlint -x @commitlint/config-conventional -E HUSKY_GIT_PARAMS"
+    "prepush": "npm t"
   },
   "repository": {
     "type": "git",
@@ -24,12 +23,11 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "7.6.1",
-    "@commitlint/config-conventional": "7.6.0",
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-conventional": "8.1.0",
     "@hapi/code": "5.3.1",
-    "@hapi/lab": "19.0.1",
+    "@hapi/lab": "19.1.0",
     "benchmark": "2.1.4",
-    "husky": "2.3.0",
-    "validate-commit-msg": "2.14.0"
+    "husky": "3.0.1"
   }
 }
