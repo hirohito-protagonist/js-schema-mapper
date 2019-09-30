@@ -341,55 +341,168 @@ describe('Mapper', () => {
 
     describe('When nested collection schema definition', () => {
         
-        it('should collect primitives values', () => {
+        describe('When String collections', () => {
+            
+            it('should collect primitives values', () => {
 
-            // Given
-            const schema = {
-                id: Number,
-                name: String,
-                surname: String,
-                tags: [String]
-            };
-            const source = {
-                name: 'Hiro',
-                tags: ['a', 'b', 'c']
-            };
-
-            // When
-            const { result } = Mapper(schema, source);
-
-            // Then
-            expect(result).to.equal({
-                id: 0,
-                name: 'Hiro',
-                surname: '',
-                tags: ['a', 'b', 'c']
+                // Given
+                const schema = {
+                    id: Number,
+                    name: String,
+                    surname: String,
+                    tags: [String]
+                };
+                const source = {
+                    name: 'Hiro',
+                    tags: ['a', 'b', 'katana']
+                };
+    
+                // When
+                const { result } = Mapper(schema, source);
+    
+                // Then
+                expect(result).to.equal({
+                    id: 0,
+                    name: 'Hiro',
+                    surname: '',
+                    tags: ['a', 'b', 'katana']
+                });
+            });
+    
+            it('should for mixed type array values provide default type value defined in schema', () => {
+                
+                // Given
+                const schema = {
+                    id: Number,
+                    name: String,
+                    surname: String,
+                    tags: [String]
+                };
+                const source = {
+                    name: 'Hiro',
+                    tags: ['a', true, 'katana', 1]
+                };
+    
+                // When
+                const { result } = Mapper(schema, source);
+    
+                // Then
+                expect(result).to.equal({
+                    id: 0,
+                    name: 'Hiro',
+                    surname: '',
+                    tags: ['a', '', 'katana', '']
+                });
             });
         });
 
-        it('should for mixed type array values provide default type value defined in schema', () => {
+        describe('When Number collections', () => {
             
-            // Given
-            const schema = {
-                id: Number,
-                name: String,
-                surname: String,
-                tags: [String]
-            };
-            const source = {
-                name: 'Hiro',
-                tags: ['a', true, 'c', 1]
-            };
+            it('should collect primitives values', () => {
 
-            // When
-            const { result } = Mapper(schema, source);
+                // Given
+                const schema = {
+                    id: Number,
+                    name: String,
+                    surname: String,
+                    tags: [Number]
+                };
+                const source = {
+                    name: 'Hiro',
+                    tags: [14, 1, 20]
+                };
+    
+                // When
+                const { result } = Mapper(schema, source);
+    
+                // Then
+                expect(result).to.equal({
+                    id: 0,
+                    name: 'Hiro',
+                    surname: '',
+                    tags: [14, 1, 20]
+                });
+            });
+    
+            it('should for mixed type array values provide default type value defined in schema', () => {
+                
+                // Given
+                const schema = {
+                    id: Number,
+                    name: String,
+                    surname: String,
+                    tags: [Number]
+                };
+                const source = {
+                    name: 'Hiro',
+                    tags: ['a', true, 'katana', 1]
+                };
+    
+                // When
+                const { result } = Mapper(schema, source);
+    
+                // Then
+                expect(result).to.equal({
+                    id: 0,
+                    name: 'Hiro',
+                    surname: '',
+                    tags: [0, 0, 0, 1]
+                });
+            });
+        });
 
-            // Then
-            expect(result).to.equal({
-                id: 0,
-                name: 'Hiro',
-                surname: '',
-                tags: ['a', '', 'c', '']
+        describe('When Boolean collections', () => {
+            
+            it('should collect primitives values', () => {
+
+                // Given
+                const schema = {
+                    id: Number,
+                    name: String,
+                    surname: String,
+                    tags: [Boolean]
+                };
+                const source = {
+                    name: 'Hiro',
+                    tags: [true, false, true]
+                };
+    
+                // When
+                const { result } = Mapper(schema, source);
+    
+                // Then
+                expect(result).to.equal({
+                    id: 0,
+                    name: 'Hiro',
+                    surname: '',
+                    tags: [true, false, true]
+                });
+            });
+    
+            it('should for mixed type array values provide default type value defined in schema', () => {
+                
+                // Given
+                const schema = {
+                    id: Number,
+                    name: String,
+                    surname: String,
+                    tags: [Boolean]
+                };
+                const source = {
+                    name: 'Hiro',
+                    tags: ['a', true, 'katana', 1]
+                };
+    
+                // When
+                const { result } = Mapper(schema, source);
+    
+                // Then
+                expect(result).to.equal({
+                    id: 0,
+                    name: 'Hiro',
+                    surname: '',
+                    tags: [false, true, false, false]
+                });
             });
         });
 
