@@ -635,6 +635,34 @@ describe('Mapper', () => {
             ]);
         });
 
+        it('should collect unmatched type information of unsupported type', () => {
+
+            // Given
+            const schema = {
+                id: Number,
+                name: String,
+                surname: String,
+                tags: [Boolean]
+            };
+            const source = {
+                id: null,
+                name: void(0),
+                surname: new Date(),
+                tags: ['a']
+            };
+
+            // When
+            const { errors } = Mapper(schema, source);
+
+            // Then
+            expect(errors).to.equal([
+                '<id> property expected to be a Number but it was null',
+                '<name> property is missing',
+                '<surname> property expected to be a String but it was Date',
+                '<tags[0]> property expected to be a Boolean but it was String'
+            ]);
+        });
+
         it('should collect missing property type information', () => {
             
             // Given
