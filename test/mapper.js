@@ -198,6 +198,35 @@ describe('Mapper', () => {
         });
     });
 
+    it('should map whem n-nested objects are missing', () => {
+
+        // Given
+        const schema = {
+            a: {
+                b: {
+                    c: { d: Number }
+                }
+            }
+        };
+        const source = {
+            a: {
+                b: {}
+            }
+        };
+
+        // When
+        const { result } = Mapper(schema, source);
+
+        // Then
+        expect(result).to.equal({
+            a: {
+                b: {
+                    c: { d: 0 }
+                }
+            }
+        });
+    });
+
     describe('When nested schema definition', () => {
         
         it('should map with the provided source', () => {

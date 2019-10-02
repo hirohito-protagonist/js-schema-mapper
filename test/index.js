@@ -164,5 +164,41 @@ describe('API', () => {
                 ]
             });
         });
+
+        it('should map whem n-nested objects are missing', () => {
+
+            // Given
+            const schema = Mapper.schema({
+                a: {
+                    b: {
+                        c: { d: Number }
+                    }
+                }
+            });
+            const source = {
+                a: {
+                    b: {}
+                }
+            };
+    
+            // When
+            const result = schema.map(source);
+    
+            // Then
+            expect(result).to.equal({
+                result: [
+                    {
+                        a: {
+                            b: {
+                                c: { d: 0 }
+                            }
+                        }
+                    }
+                ],
+                errors: [
+                    '<d> property is missing'
+                ]
+            });
+        });
     });
 });
