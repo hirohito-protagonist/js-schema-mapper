@@ -69,7 +69,7 @@ describe('Mapper', () => {
         const source = {};
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -78,6 +78,13 @@ describe('Mapper', () => {
             surname: '',
             male: false
         });
+
+        expect(errors).to.equal([
+            '<id> property is missing',
+            '<name> property is missing',
+            '<surname> property is missing',
+            '<male> property is missing'            
+        ]);
     });
 
     it('should map from source properties that are defined only in schema', () => {
@@ -95,7 +102,7 @@ describe('Mapper', () => {
         };
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -104,6 +111,12 @@ describe('Mapper', () => {
             surname: '',
             male: false
         });
+
+        expect(errors).to.equal([
+            '<id> property is missing',
+            '<surname> property is missing',
+            '<male> property is missing'          
+        ]);
     });
 
     it('should provide default data from schema when type mismatch is in provided source', () => {
@@ -123,7 +136,7 @@ describe('Mapper', () => {
         };
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -132,6 +145,12 @@ describe('Mapper', () => {
             surname: '',
             male: false
         });
+
+        expect(errors).to.equal([
+            '<id> property expected to be a Number but it was String',
+            '<surname> property is missing',
+            '<male> property expected to be a Boolean but it was Number'          
+        ]);
     });
 
     it('should map Object as it is when is set in schema', () => {
@@ -154,7 +173,7 @@ describe('Mapper', () => {
         };
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -166,6 +185,12 @@ describe('Mapper', () => {
                 street: 'Metaverse'
             }
         });
+
+        expect(errors).to.equal([
+            '<id> property expected to be a Number but it was String',
+            '<surname> property is missing',
+            '<male> property expected to be a Boolean but it was Number'          
+        ]);
     });
 
     it('should map Array as it is when is set in schema', () => {
@@ -186,7 +211,7 @@ describe('Mapper', () => {
         };
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -196,6 +221,12 @@ describe('Mapper', () => {
             male: false,
             friends: ['Tim', 'Joe']
         });
+
+        expect(errors).to.equal([
+            '<id> property expected to be a Number but it was String',
+            '<surname> property is missing',
+            '<male> property expected to be a Boolean but it was Number'          
+        ]);
     });
 
     it('should map whem n-nested objects are missing', () => {
@@ -215,7 +246,7 @@ describe('Mapper', () => {
         };
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -225,6 +256,10 @@ describe('Mapper', () => {
                 }
             }
         });
+
+        expect(errors).to.equal([
+            '<d> property is missing'
+        ]);
     });
 
     describe('When nested schema definition', () => {
@@ -251,7 +286,7 @@ describe('Mapper', () => {
             };
 
             // When
-            const { result } = Mapper(schema, source);
+            const { result, errors } = Mapper(schema, source);
 
             // Then
             expect(result).to.equal({
@@ -264,6 +299,12 @@ describe('Mapper', () => {
                     country: 'Freedom'
                 }
             });
+
+            expect(errors).to.equal([
+                '<id> property is missing',
+                '<surname> property is missing',
+                '<male> property is missing'              
+            ]);
         });
 
         it('should provide default object from schema when in source matched object is empty', () => {
@@ -285,7 +326,7 @@ describe('Mapper', () => {
             };
 
             // When
-            const { result } = Mapper(schema, source);
+            const { result, errors } = Mapper(schema, source);
     
             // Then
             expect(result).to.equal({
@@ -298,6 +339,14 @@ describe('Mapper', () => {
                     country: ''
                 }
             });
+
+            expect(errors).to.equal([
+                '<id> property is missing',
+                '<surname> property is missing',
+                '<male> property is missing',
+                '<city> property is missing',
+                '<country> property is missing'              
+            ]);
         });
 
         it('should provide default object from schema when in source matched object is null', () => {
@@ -319,7 +368,7 @@ describe('Mapper', () => {
             };
     
             // When
-            const { result } = Mapper(schema, source);
+            const { result, errors } = Mapper(schema, source);
 
             // Then
             expect(result).to.equal({
@@ -332,6 +381,14 @@ describe('Mapper', () => {
                     country: ''
                 }
             });
+
+            expect(errors).to.equal([
+                '<id> property is missing',
+                '<surname> property is missing',
+                '<male> property is missing',
+                '<city> property is missing',
+                '<country> property is missing'              
+            ]);
         });
 
         it('should provide default object from schema when in source matched object is not defined', () => {
@@ -352,7 +409,7 @@ describe('Mapper', () => {
             };
 
             // When
-            const { result } = Mapper(schema, source);
+            const { result, errors } = Mapper(schema, source);
     
             // Then
             expect(result).to.equal({
@@ -365,6 +422,14 @@ describe('Mapper', () => {
                     country: ''
                 }
             });
+
+            expect(errors).to.equal([
+                '<id> property is missing',
+                '<surname> property is missing',
+                '<male> property is missing',
+                '<city> property is missing',
+                '<country> property is missing'              
+            ]);
         });
     });
 
@@ -387,7 +452,7 @@ describe('Mapper', () => {
                 };
     
                 // When
-                const { result } = Mapper(schema, source);
+                const { result, errors } = Mapper(schema, source);
     
                 // Then
                 expect(result).to.equal({
@@ -396,6 +461,11 @@ describe('Mapper', () => {
                     surname: '',
                     tags: ['a', 'b', 'katana']
                 });
+
+                expect(errors).to.equal([
+                    '<id> property is missing',
+                    '<surname> property is missing'            
+                ]);
             });
     
             it('should for mixed type array values provide default type value defined in schema', () => {
@@ -413,7 +483,7 @@ describe('Mapper', () => {
                 };
     
                 // When
-                const { result } = Mapper(schema, source);
+                const { result, errors } = Mapper(schema, source);
     
                 // Then
                 expect(result).to.equal({
@@ -422,6 +492,13 @@ describe('Mapper', () => {
                     surname: '',
                     tags: ['a', '', 'katana', '']
                 });
+
+                expect(errors).to.equal([
+                    '<id> property is missing',
+                    '<surname> property is missing',
+                    '<0> property is missing',
+                    '<0> property is missing'                  
+                ]);
             });
         });
 
@@ -442,7 +519,7 @@ describe('Mapper', () => {
                 };
     
                 // When
-                const { result } = Mapper(schema, source);
+                const { result, errors } = Mapper(schema, source);
     
                 // Then
                 expect(result).to.equal({
@@ -451,6 +528,11 @@ describe('Mapper', () => {
                     surname: '',
                     tags: [14, 1, 20]
                 });
+
+                expect(errors).to.equal([
+                    '<id> property is missing',
+                    '<surname> property is missing'            
+                ]);
             });
     
             it('should for mixed type array values provide default type value defined in schema', () => {
@@ -468,7 +550,7 @@ describe('Mapper', () => {
                 };
     
                 // When
-                const { result } = Mapper(schema, source);
+                const { result, errors } = Mapper(schema, source);
     
                 // Then
                 expect(result).to.equal({
@@ -477,6 +559,14 @@ describe('Mapper', () => {
                     surname: '',
                     tags: [0, 0, 0, 1]
                 });
+
+                expect(errors).to.equal([
+                    '<id> property is missing',
+                    '<surname> property is missing',
+                    '<tags[0]> property expected to be a Number but it was String',
+                    '<0> property is missing',
+                    '<tags[0]> property expected to be a Number but it was String'                  
+                ]);
             });
         });
 
@@ -497,7 +587,7 @@ describe('Mapper', () => {
                 };
     
                 // When
-                const { result } = Mapper(schema, source);
+                const { result, errors } = Mapper(schema, source);
     
                 // Then
                 expect(result).to.equal({
@@ -506,6 +596,12 @@ describe('Mapper', () => {
                     surname: '',
                     tags: [true, false, true]
                 });
+
+                expect(errors).to.equal([
+                    '<id> property is missing',
+                    '<surname> property is missing',
+                    '<0> property is missing'                  
+                ]);
             });
     
             it('should for mixed type array values provide default type value defined in schema', () => {
@@ -523,7 +619,7 @@ describe('Mapper', () => {
                 };
     
                 // When
-                const { result } = Mapper(schema, source);
+                const { result, errors } = Mapper(schema, source);
     
                 // Then
                 expect(result).to.equal({
@@ -532,6 +628,14 @@ describe('Mapper', () => {
                     surname: '',
                     tags: [false, true, false, false]
                 });
+
+                expect(errors).to.equal([
+                    '<id> property is missing',
+                    '<surname> property is missing',
+                    '<tags[0]> property expected to be a Boolean but it was String',
+                    '<tags[0]> property expected to be a Boolean but it was String',
+                    '<0> property is missing'                  
+                ]);
             });
         });
 
@@ -546,12 +650,14 @@ describe('Mapper', () => {
             };
 
             // When
-            const { result } =  Mapper(schema, source);
+            const { result, errors } =  Mapper(schema, source);
 
             // Then
             expect(result).to.equal({
                 tags: []
             });
+
+            expect(errors).to.equal([]);
         });
 
         it('should return empty array when in source matched property is not exist', () => {
@@ -563,12 +669,16 @@ describe('Mapper', () => {
             const source = {};
 
             // When
-            const { result } =  Mapper(schema, source);
+            const { result, errors } =  Mapper(schema, source);
 
             // Then
             expect(result).to.equal({
                 tags: []
             });
+
+            expect(errors).to.equal([
+                '<tags> property is missing'
+            ]);
         });
 
         it('should collect objects', () => {
@@ -588,7 +698,7 @@ describe('Mapper', () => {
             };
 
             // When
-            const { result } = Mapper(schema, source);
+            const { result, errors } = Mapper(schema, source);
 
             // Then
             expect(result).to.equal({
@@ -597,6 +707,8 @@ describe('Mapper', () => {
                     { id: 2, value: 'b' }
                 ]
             });
+
+            expect(errors).to.equal([]);
         });
     });
 
@@ -621,7 +733,7 @@ describe('Mapper', () => {
         };
 
         // When
-        const { result } = Mapper(schema, source);
+        const { result, errors } = Mapper(schema, source);
 
         // Then
         expect(result).to.equal({
@@ -632,6 +744,8 @@ describe('Mapper', () => {
                 }
             ]
         });
+
+        expect(errors).to.equal([]);
     });
 
     describe('When errors on mapping', () => {
