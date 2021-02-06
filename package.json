@@ -23,11 +23,11 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.3.5",
-    "@commitlint/config-conventional": "8.3.4",
-    "@hapi/code": "8.0.1",
-    "@hapi/lab": "22.0.4",
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
+    "@hapi/code": "8.0.2",
+    "@hapi/lab": "24.1.0",
     "benchmark": "2.1.4",
-    "husky": "4.2.5"
+    "husky": "4.3.8"
   }
 }
