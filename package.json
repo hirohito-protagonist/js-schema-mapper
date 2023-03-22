@@ -7,7 +7,7 @@
     "test": "lab -t 100",
     "test-cov-html": "lab -r html -o coverage.html",
     "perf": "node ./benchmark/index.js",
-    "prepush": "npm t"
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -20,14 +20,14 @@
   },
   "homepage": "https://github.com/hirohito-protagonist/js-schema-mapper#readme",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=18"
   },
   "devDependencies": {
-    "@commitlint/cli": "11.0.0",
-    "@commitlint/config-conventional": "11.0.0",
-    "@hapi/code": "8.0.2",
-    "@hapi/lab": "24.1.0",
+    "@commitlint/cli": "17.5.0",
+    "@commitlint/config-conventional": "17.4.4",
+    "@hapi/code": "9.0.3",
+    "@hapi/lab": "25.1.2",
     "benchmark": "2.1.4",
-    "husky": "4.3.8"
+    "husky": "8.0.3"
   }
 }
