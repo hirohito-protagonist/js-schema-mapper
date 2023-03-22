@@ -72,9 +72,8 @@ machine where the benchmark will be run.
 
 The spec machine on which the benchmark was run:
 ```
-AMD A10-4665M APU with Radeon(tm) HD Graphics 2.00 GHz
-10.0 GB RAM DDR3
-Hitachi HDD
+Chip: Apple M1
+Memory: 16 GB
 ```
 
 The command to run benchmark:
@@ -84,27 +83,27 @@ npm run perf
 
 Example benchmark output:
 ```bash
-Mapping 10 objects to schema x 2,547 ops/sec ±1.29% (175 runs sampled)
-Mapping 100 objects to schema x 261 ops/sec ±1.65% (163 runs sampled)
-Mapping 1000 objects to schema x 25.44 ops/sec ±1.31% (138 runs sampled)
+Mapping 10 objects to schema x 16,895 ops/sec ±0.16% (195 runs sampled)
+Mapping 100 objects to schema x 1,695 ops/sec ±0.19% (192 runs sampled)
+Mapping 1000 objects to schema x 170 ops/sec ±0.20% (182 runs sampled)
 --------------------------------------------------------------------------------------
 Suite name: Mapping 10 objects to schema
-The time taken to complete the last cycle (secs) - 0.058886015200724964
-The time taken to complete the benchmark (secs)  - 13.677
-The time taken to execute the test once (secs)   - 0.00039257343467149976
-A timestamp of when the benchmark started (ms)   - 1534356127039
+The time taken to complete the last cycle (secs) - 0.05137682888515251
+The time taken to complete the benchmark (secs)  - 11.924
+The time taken to execute the test once (secs)   - 0.00005918989502897755
+A timestamp of when the benchmark started (ms)   - 1679507153715
 --------------------------------------------------------------------------------------
 Suite name: Mapping 100 objects to schema
-The time taken to complete the last cycle (secs) - 0.06505252866474952
-The time taken to complete the benchmark (secs)  - 13.905
-The time taken to execute the test once (secs)   - 0.00382661933322056
-A timestamp of when the benchmark started (ms)   - 1534356140730
+The time taken to complete the last cycle (secs) - 0.0525151535985344
+The time taken to complete the benchmark (secs)  - 11.722
+The time taken to execute the test once (secs)   - 0.0005900579056015101
+A timestamp of when the benchmark started (ms)   - 1679507165648
 --------------------------------------------------------------------------------------
 Suite name: Mapping 1000 objects to schema
-The time taken to complete the last cycle (secs) - 0.07862755826086962
-The time taken to complete the benchmark (secs)  - 18.682
-The time taken to execute the test once (secs)   - 0.03931377913043481
-A timestamp of when the benchmark started (ms)   - 1534356154645
+The time taken to complete the last cycle (secs) - 0.052866817758241744
+The time taken to complete the benchmark (secs)  - 12.18
+The time taken to execute the test once (secs)   - 0.005874090862026861
+A timestamp of when the benchmark started (ms)   - 1679507177376
 --------------------------------------------------------------------------------------
 ```
 
