@@ -6,8 +6,7 @@
   "scripts": {
     "test": "lab -t 100",
     "test-cov-html": "lab -r html -o coverage.html",
-    "perf": "node ./benchmark/index.js",
-    "prepare": "husky install"
+    "perf": "node ./benchmark/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,11 +22,8 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.5.0",
-    "@commitlint/config-conventional": "17.4.4",
     "@hapi/code": "9.0.3",
     "@hapi/lab": "26.0.0",
-    "benchmark": "2.1.4",
-    "husky": "8.0.3"
+    "benchmark": "2.1.4"
   }
 }
