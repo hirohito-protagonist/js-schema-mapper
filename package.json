@@ -26,7 +26,7 @@
     "@commitlint/cli": "17.5.0",
     "@commitlint/config-conventional": "17.4.4",
     "@hapi/code": "9.0.3",
-    "@hapi/lab": "25.1.2",
+    "@hapi/lab": "26.0.0",
     "benchmark": "2.1.4",
     "husky": "8.0.3"
   }
